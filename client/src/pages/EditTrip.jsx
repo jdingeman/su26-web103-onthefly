@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import "./EditTrip.css";
 
-const EditTrip = ({ data }) => {
+const EditTrip = ({ data, api_url }) => {
   const { id } = useParams();
   const [post, setPost] = useState({
     id: 0,
@@ -49,7 +49,7 @@ const EditTrip = ({ data }) => {
       body: JSON.stringify(post),
     };
 
-    fetch(`/api/trips/${id}`, options);
+    fetch(`${api_url}/api/trips/${id}`, options);
 
     window.location.href = "/";
   };

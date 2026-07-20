@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import "./CreateActivity.css";
 
-const CreateActivity = ({ api_url }) => {
-  const [activity, setActivity] = useState({ activity: "" });
+const AddUserToTrip = ({ api_url }) => {
+  const [username, setUsername] = useState({ username: "" });
   const { trip_id } = useParams();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setActivity((prev) => {
+    setUsername((prev) => {
       return {
         ...prev,
         [name]: value,
@@ -16,8 +16,7 @@ const CreateActivity = ({ api_url }) => {
     });
   };
 
-  const createActivity = async (event) => {
-    event.preventDefault();
+  const addUserToTrip = async (event) => {
     event.preventDefault();
 
     const options = {
@@ -25,29 +24,32 @@ const CreateActivity = ({ api_url }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(activity),
+      body: JSON.stringify(username),
     };
 
-    fetch(`${api_url}/api/activities/${trip_id}`, options);
-    window.location.href = "/";
+    await fetch(`${api_url}/api/users-trips/create/${trip_id}`, options);
+
+    window.location = "/";
   };
 
   return (
     <div>
       <center>
-        <h3>Add Activity</h3>
+        <h3>Add User to Trip</h3>
       </center>
       <form>
-        <label>Activity</label> <br />
+        <label>Enter GitHub Username:</label>
+        <br />
         <input
           type="text"
-          id="activity"
-          name="activity"
-          value={activity.activity}
+          id="username"
+          name="username"
+          value={username.username}
           onChange={handleChange}
         />
         <br />
         <br />
+
         <label>Trip ID</label>
         <br />
         <input
@@ -59,10 +61,11 @@ const CreateActivity = ({ api_url }) => {
         />
         <br />
         <br />
-        <input type="submit" value="Submit" onClick={createActivity} />
+
+        <input type="submit" value="Submit" onClick={addUserToTrip} />
       </form>
     </div>
   );
 };
 
-export default CreateActivity;
+export default AddUserToTrip;

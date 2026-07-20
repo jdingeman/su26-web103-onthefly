@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./CreateTrip.css";
 
-const CreateTrip = () => {
+const CreateTrip = ({ api_url }) => {
   const [trip, setTrip] = useState({
     id: 0,
     title: "",
@@ -33,7 +33,7 @@ const CreateTrip = () => {
       body: JSON.stringify(trip),
     };
 
-    fetch("/api/trips", options);
+    fetch(`${api_url}/api/trips`, options);
 
     window.location.href = "/";
   };
