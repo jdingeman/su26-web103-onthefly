@@ -1,3 +1,3 @@
-## Walkthrough - Unit 5
+## Walkthrough - Unit 6
 
 ![](walkthrough.gif)
